@@ -1,29 +1,20 @@
-# Тестовое задание для Backend разработчика
+# Start
 
-Необходимо на базе данного проекта реализовать АПИ, который предоставляет CRUD-интерфейс для работы с компаниями и связанными с ними контактами.
+to start the application you need to run npm start
 
-# Требования
+# After
 
-- Результат выполнения задания должен быть выложен в любой открытый репозиторий.+
-- К проекту должна быть приложена инструкция по запуску, а также дамп БД, ++содержащий несколько записей о компаниях/контактах.+
-- В качестве БД нужно использовать MongoDB.+
-- Автоматические тесты
-- Документация к API
+To work with the application you need first to register a new profile, the authentication it's no neccessary for that and after authenticate your self with the provide email and password.
 
-# Задачи
+you can later try to fetch, edit or get profiles from the database with
+POST : /user/register => for register a new user with firstname, lastname, email, password,and image as parameters
+POST: /user/login => to authenticate your self with email and password
+PUT: /profile/:id => to modify a specific profile or user without password and id parameter
+GET: /profile/:id => to fetch a specific profile with a given id
+GET: /profile/?page=1 => to fetch paginated profile
 
-- Реализовать авторизацию по логин/паролю. +
-- Реализовать методы получения/сохранения данных компаний и контактов. Пример форматов данных есть в "заглушках" в коде проекта.+
-- Реализовать дополнительно метод получения списка компаний. Должна быть возможность отфильтровать по статусу и/или типу компании, отсортировать по имени и/или дате создания. Также метод получения списка должен предлагать параметры для реализации пагинации.+
-- Реализовать метод удаления контакта.+
-- Добавить компании новое свойство "адрес".
+# database
 
-# Предлагаемое решение
+the database generated is called apibackend_users.sql
 
-- Вместе с этим вы найдете решение, предлагающее разработать решение для управления компаниями в качестве бэкэнда.
-
-# Запуск
-
-- npm start позволяет запустить приложение и подключится к вам на основе специальных тестовых данных для этой цели
-- npm test позволяет запустить тестирование приложения
-- вы найдете прикрепленный html-файл, содержащий документацию по api и его работу.
+thank for your times
