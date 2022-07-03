@@ -1,13 +1,13 @@
-const log4js = require('log4js');
-const path = require('path');
-const httpContext = require('express-http-context');
-const logConfig = require('../config').log;
+const log4js = require("log4js");
+const path = require("path");
+const httpContext = require("express-http-context");
+const logConfig = require("../config/config").log;
 
 const logAppenders = {
-  file: { type: 'file', filename: logConfig.path },
+  file: { type: "file", filename: logConfig.path },
 };
 if (logConfig.console) {
-  logAppenders.console = { type: 'console' };
+  logAppenders.console = { type: "console" };
 }
 
 log4js.configure({
@@ -15,7 +15,7 @@ log4js.configure({
   categories: {
     default: {
       appenders: Object.keys(logAppenders),
-      level: 'ALL',
+      level: "ALL",
     },
   },
 });
@@ -39,9 +39,9 @@ module.exports = (callingModule) => {
 };
 
 function _formatMessage(error) {
-  const user = httpContext.get('user');
-  const method = httpContext.get('method');
-  const url = httpContext.get('url');
+  const user = httpContext.get("user");
+  const method = httpContext.get("method");
+  const url = httpContext.get("url");
 
   const messageArr = [];
   if (user) {
@@ -58,5 +58,5 @@ function _formatMessage(error) {
   } else {
     messageArr.push(error);
   }
-  return messageArr.join(' -> ');
+  return messageArr.join(" -> ");
 }

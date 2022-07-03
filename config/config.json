@@ -1,0 +1,13 @@
+{
+  "app": "Blank API for backend developer",
+  "jwt_ttl": 604800,
+  "port": 3000,
+  "log": {
+    "path": "test_task_api.log",
+    "console": true,
+    "debug": true
+  },
+  "uploads_dir": "./uploads",
+  "images_dir": "public/images/",
+  "thumb_size": 160
+}

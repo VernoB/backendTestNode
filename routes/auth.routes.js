@@ -1,44 +1,55 @@
 const { Router } = require("express");
-const jwt = require("jsonwebtoken");
-const { body, query } = require("express-validator");
+const { body, query, check } = require("express-validator");
 
-const User = require("../models/user.model");
+const User = require("../models/user");
 const authController = require("../controllers/auth.controller");
-const { findOne } = require("../services/auth.service");
-const config = require("../config");
-const logger = require("../services/logger")(module);
 
 const router = Router();
 
-router.get(
-  "/",
-  query("username")
+router.post(
+  "/login",
+  body("email")
     .trim()
-    .isString()
-    .withMessage("username invalid")
-    .isLength({ min: 5 })
-    .withMessage("username too short"),
-
+    .exists()
+    .normalizeEmail()
+    .isEmail()
+    .withMessage("Please provide a correct email format"),
+  body("password")
+    .trim()
+    .isLength({ min: 8 })
+    .withMessage("Password too short"),
   authController.login
 );
 
 //signup route with verification for the input
-
 router.post(
-  "/signup",
-  body("username")
+  "/register",
+  body("firstname")
     .trim()
-    .isLength({ min: 5, max: 255 })
-    .withMessage("Please the provide username")
-    .custom(async (value) => {
-      const user = await findOne(value);
-      if (user) {
-        return Promise.reject(
-          "The user provided already exists in the database"
-        );
-      }
-    }),
-  authController.signup
+    .isString()
+    .exists({ checkNull: true })
+    .withMessage("The firstname can't be empty")
+    .isLength({ min: 5, max: 50 })
+    .withMessage("Please the provide firstname"),
+  body("lastname")
+    .trim()
+    .isString()
+    .exists({ checkNull: true })
+    .withMessage("The lastname can't be empty")
+    .isLength({ min: 5, max: 50 })
+    .withMessage("Please the provide lastname"),
+  check("email")
+    .trim()
+    .normalizeEmail()
+    .isEmail()
+    .withMessage("Please provide a correct email format"),
+  body("password")
+    .trim()
+    .exists()
+    .withMessage("the password can't be empty")
+    .isLength({ min: 8 })
+    .withMessage("Password too short"),
+  authController.register
 );
 
 module.exports = router;
